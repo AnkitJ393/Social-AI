@@ -41,8 +41,8 @@ const SearchDashboard = ({onSearchChange}:{onSearchChange:React.Dispatch<React.S
                 <SearchIcon/>
                 <input type="text" placeholder='Search...' onChange={(e)=>onSearchChange(e.target.value)} className='bg-transparent outline-none text-black' />
             </div>
-            <div className='ml-auto'>
                 <Categories items={categories}/>
+            <div className='ml-auto'>
                 <Auth/>
             </div>
         </div>
