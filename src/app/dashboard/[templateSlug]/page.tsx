@@ -45,7 +45,7 @@ const TemplatePage = ({params}:{params:templateSlugProps}) => {
           body: JSON.stringify({
               title: dataSet.title, 
               description: result.response.text(), 
-              templateUsed: selectedTemplate
+              templateUsed: selectedTemplate?.name
           })
       });
 
