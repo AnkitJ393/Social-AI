@@ -11,28 +11,20 @@ import {
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const Upgrade = () => {
   const router = useRouter();
 
   const handleOnClick = async () => {
-    let phonePeData={
-      name:'Ankit',
-      amount:1000,
-      number:'999999999',
-      MID:'MID' + Date.now(),
-      transanction:'T' + Date.now()
-    }
-   
-    try{
 
-      const response=await fetch('/api/checkout',{
-        method: 'POST',
-        headers: {
-              'Content-Type': 'application/json', 
-        },
-        body:JSON.stringify(phonePeData),
-    })
+  try{
+      const response=await axios.post('/api/checkout');
+
+      if(response && response.data){
+        router.push(response.data.approvalURL);
+      }
+
   }catch(error){
         console.log(error);
       }
@@ -46,7 +38,7 @@ const Upgrade = () => {
       <div className="mt-5 py-6 px-4 rounded">
         <Card className="w-[350px] flex flex-col mx-auto">
           <CardHeader>
-            <CardTitle>1000Rs. One-Time Purchase</CardTitle>
+            <CardTitle>10$ One-Time Purchase</CardTitle>
             <CardDescription>10,000 AI Credit</CardDescription>
           </CardHeader>
           <CardContent>

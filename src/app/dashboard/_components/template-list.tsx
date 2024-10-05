@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation'
 const TemplateList = ({searchInput}:{searchInput:string |undefined}) => {
 
     const [templateList, setTemplateList] = useState(contentTemplates);
-
+ 
     const searchparams=useSearchParams();
     const searchCategory=searchparams.get('category');
     
@@ -50,7 +50,7 @@ const TemplateList = ({searchInput}:{searchInput:string |undefined}) => {
         {templateList.map((template)=>(
             <div key={template.slug}>
                 <Link href={`dashboard/${template.slug}`} className='bg-white w-full rounded-lg h-[200px] py-4 px-4 text-center flex flex-col justify-center'>
-                    <template.icon className='h-12 w-12 mx-auto'></template.icon>
+                    <template.icon  className='h-12 w-12 mx-auto' ></template.icon>
                     <h2 className='font semibold mt-5'>{template.name}</h2>
                 </Link>
             </div>

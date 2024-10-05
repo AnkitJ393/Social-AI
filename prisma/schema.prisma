@@ -30,10 +30,10 @@ model Purchase{
   createdAt DateTime @default(now())
 }
 
-model StripeCustomer{
+model PaypalCustomer{
   id               String @id @default(uuid())
   userId           String @unique
-  stripeCustomerId String @unique
+  paypalCustomerId String @unique
 
   createdAt        DateTime @default(now())
 }

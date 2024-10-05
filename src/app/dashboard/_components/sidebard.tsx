@@ -31,7 +31,7 @@ const Sidebar = () => {
     const path=usePathname();
     
   return (
-    <div className="p-5 bg-white h-[800px] flex flex-col">
+    <div className="p-5 bg-white h-[70vh] flex flex-col">
         <Logo/>
      <div className="mt-10 h-max flex flex-col justify-between">
         {menuList.map((menu)=>

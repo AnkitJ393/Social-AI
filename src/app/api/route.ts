@@ -21,7 +21,6 @@ export async function POST(req:Request) {
                     templateUsed:JSON.stringify(templateUsed) 
                 }
         });
-        console.log(createNewOutput);
         
 
         revalidatePath('/');

@@ -48,9 +48,7 @@ const TemplatePage = ({params}:{params:templateSlugProps}) => {
               templateUsed: selectedTemplate?.name
           })
       });
-
-      console.log(response);
-      
+    
         setIsLoading(false);
       }
       catch(error){

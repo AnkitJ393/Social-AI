@@ -1,58 +1,73 @@
+import { NextRequest, NextResponse } from "next/server";
+import paypal from 'paypal-rest-sdk';
+import { db } from "@/lib/db";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
-import { NextResponse } from "next/server";
-import axios from 'axios';
-import { createHash } from 'crypto';
+paypal.configure({
+    mode: 'sandbox',
+    client_id: process.env.PAYPAL_CLIENT_ID as string,
+    client_secret: process.env.PAYPAL_SECRET as string,
+});
 
+export async function POST(req: NextRequest) {
+    const userId=auth();
+    const user = await currentUser();
 
+    try {
+        const create_payment_json = {
+            intent: 'sale',
+            payer: {
+                payment_method: 'paypal',
+            },
+            redirect_urls: {
+                return_url: 'http://localhost:3000/api/checkout/success',
+                cancel_url: 'http://localhost:3000/api/checkout/failed',
+            },
+            transactions: [
+                {
+                    item_list: {
+                        items: [
+                            {
+                                name: 'item',
+                                sku: 'item',
+                                price: '1.00',
+                                currency: 'USD',
+                                quantity: 1,
+                            },
+                        ],
+                    },
+                    amount: {
+                        currency: 'USD',
+                        total: '1.00',
+                    },
+                    description: 'This is the payment description.',
+                },
+            ],
+        };
 
-export async function POST(req:Request){
     
-    let salt_key='099eb0cd-02cf-4e2a-8aca-3e6c6aff0399';
-    let merchant_id='PGTESTPAYUAT';
-    const {name,amount,number,MID,transanction}=await req.json();
+        // Wrap PayPal callback in a Promise
+        const payment:any = await new Promise((resolve, reject) => {
+            paypal.payment.create(create_payment_json, (error: any, payment: any) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(payment);
+                }
+            });
+        });
 
+        // Extract approval URL from the payment object
+        const approvalURL = payment.links.find((link: any) => link.rel === 'approval_url');
 
-    const data={
-            merchant_id:merchant_id,
-            merchantTransactionId:transanction,
-            amount:amount*100,
-            name:name,
-            redirectUrl:`http://localhost:3000/status?id=${transanction}`,
-            redirectMode:'POST',
-            mobileNumber:number,
-            paymentInstrument:{
-                type:'PAY_PAGE'
-
-            }
-         }
-
-         console.log(data)
-
-    const payload=JSON.stringify(data);
-    const payloadMain=Buffer.from(payload).toString('base64');
-    const keyIndex=1;
-    const string=payloadMain+`/pg/v1/pay`+salt_key;
-    const sha256=createHash('sha256').update(string).digest('hex');
-    const checksum=sha256 + '###' + keyIndex;
-
-    const prodURL='https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay';
-
-    const options={
-        method:'POST',
-        url:prodURL,
-        headers:{
-            accept:'application/json',
-            'Content-Type':'application/json',
-            'X-VERIFY':checksum
-        },
-        data:{
-            request:payloadMain
+        // If approval URL exists, send it as a response
+        if (approvalURL) {
+            return NextResponse.json({ approvalURL: approvalURL.href }, { status: 200 });
+        } else {
+            return new NextResponse('Approval URL not found', { status: 500 });
         }
+    } catch (error) {
+        console.error('Error creating payment:', error);
+        return new NextResponse('Payment creation failed', { status: 500 });
     }
-
-    const response=await axios (options);
-
-    
-
-
 }
