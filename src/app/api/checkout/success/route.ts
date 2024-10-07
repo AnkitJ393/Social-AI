@@ -16,8 +16,6 @@ export async function GET(req: NextRequest) {
     const userId=auth();
     const user = await currentUser();
 
-    console.log(userId);
-
 
    await db.purchase.create({
         data:{

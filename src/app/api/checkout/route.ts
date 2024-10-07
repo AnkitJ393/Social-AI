@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import paypal from 'paypal-rest-sdk';
-import { db } from "@/lib/db";
 import { auth, currentUser } from "@clerk/nextjs/server";
 
 paypal.configure({
@@ -30,7 +29,7 @@ export async function POST(req: NextRequest) {
                             {
                                 name: 'item',
                                 sku: 'item',
-                                price: '1.00',
+                                price: '10.00',
                                 currency: 'USD',
                                 quantity: 1,
                             },
@@ -38,7 +37,7 @@ export async function POST(req: NextRequest) {
                     },
                     amount: {
                         currency: 'USD',
-                        total: '1.00',
+                        total: '10.00',
                     },
                     description: 'This is the payment description.',
                 },

@@ -4,22 +4,24 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { contentTemplates } from '@/lib/content-template';
-import { Loader } from 'lucide-react';
+import { Loader, Router } from 'lucide-react';
 import { useState } from 'react';
 import Editor from '../_components/editor';
 import { chatSession } from '@/lib/gemini-ai';
+import { useRouter } from 'next/navigation';
 
 interface templateSlugProps{
     templateSlug:string;
 }
 
 const TemplatePage = ({params}:{params:templateSlugProps}) => {
-
-    const selectedTemplate=contentTemplates.find((item)=>item.slug===params.templateSlug);
-    const [isLoading,setIsLoading]=useState(false);
-    const [aiOutput,setAiOutput]=useState<string>('');
-
-    const generateAiContent=async(formData:FormData)=>{
+  
+  const selectedTemplate=contentTemplates.find((item)=>item.slug===params.templateSlug);
+  const [isLoading,setIsLoading]=useState(false);
+  const [aiOutput,setAiOutput]=useState<string>('');
+  const router = useRouter(); // Get the router instance
+  
+  const generateAiContent=async(formData:FormData)=>{
       setIsLoading(true);
 
       try{
@@ -32,7 +34,7 @@ const TemplatePage = ({params}:{params:templateSlugProps}) => {
         const selectedPrompt=selectedTemplate?.aiPrompt;
         const finalAIprompt=JSON.stringify(dataSet)+", "+selectedPrompt;
 
-        
+
 
         const result=await chatSession.sendMessage(finalAIprompt);
         setAiOutput(result.response.text());
@@ -48,7 +50,11 @@ const TemplatePage = ({params}:{params:templateSlugProps}) => {
               templateUsed: selectedTemplate?.name
           })
       });
-    
+
+      if(response.status===200){
+        router.refresh()
+      }
+
         setIsLoading(false);
       }
       catch(error){
@@ -76,10 +82,17 @@ const TemplatePage = ({params}:{params:templateSlugProps}) => {
             {selectedTemplate?.form?.map((form)=>{
                 return (
                     <div key={selectedTemplate.slug}>
-                        <label>{form.label}</label>
+                        <label>
+                          {form.label}
+                          {form.field ==='input' && <span className="text-red-500 ml-1">*</span>}
+                        </label>
                         {form.field ==='input'  ? (
                             <div className='mt-5'>
-                                <Input name='title'></Input>
+                                <Input
+                                    name='title'
+                                    required
+                                  >
+                                </Input>
                             </div>
                         ) :
                             <div className='mt-5'><Textarea name='description'/></div>

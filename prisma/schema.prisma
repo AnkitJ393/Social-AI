@@ -42,5 +42,5 @@ model User{
   id          String @id @unique @default(uuid())
   userId      String @unique
 
-  totalCredit Float @default(10000)
+  totalCredit Float @default(100000)
 }

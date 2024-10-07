@@ -6,6 +6,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+
+import { useEffect } from "react";
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
 
 const chartConfig = {
@@ -28,14 +30,12 @@ export default function AIChart({
 }) {
   const chartData = [
     {
-      month: "january",
       available: `${availableCredit}`,
       used: `${totalUsage}`,
     },
   ];
 
-  console.log('hi')
-
+ 
   return (
     <ChartContainer
       config={chartConfig}

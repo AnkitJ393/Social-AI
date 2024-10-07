@@ -1,14 +1,11 @@
 import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache';
-import React from 'react'
 import AIChart from './ai-chart';
 
 const AIUsage = async ()=> {
 
     const {userId}=auth();
-
-    console.log(userId);
 
     if(!userId){
         revalidatePath('/');
@@ -35,13 +32,13 @@ const AIUsage = async ()=> {
         where:{userId:userId as string}
     })
 
-    availableCredit=userCredit ? Number(userCredit?.totalCredit) : 10000;
+    availableCredit=userCredit ? Number(userCredit?.totalCredit) : 100000;
 
-    console.log('totalusage'+totalUsage,availableCredit)
+    console.log(availableCredit,totalUsage)
 
     return (
         <div className="bg-white">
-          <AIChart availableCredit={availableCredit} totalUsage={totalUsage} />
+          <AIChart availableCredit={availableCredit-totalUsage} totalUsage={totalUsage} />
         </div>
       );
 }
