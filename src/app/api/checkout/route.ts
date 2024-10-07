@@ -54,7 +54,7 @@ export async function POST(){
         });
 
         
-        const approvalURL = payment.links?.find((link: any) => link.rel === 'approval_url');
+        const approvalURL: paypal.Link | undefined = payment.links?.find((link: paypal.Link) => link.rel === 'approval_url');
 
         if (approvalURL) {
             return NextResponse.json({ approvalURL: approvalURL.href }, { status: 200 });

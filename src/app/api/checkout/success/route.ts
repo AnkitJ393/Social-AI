@@ -14,7 +14,6 @@ export async function GET(req: NextRequest) {
     const paymentId = req.nextUrl.searchParams.get('paymentId');
     
     const userId=auth();
-    const user = await currentUser();
 
 
    await db.purchase.create({
@@ -23,8 +22,6 @@ export async function GET(req: NextRequest) {
             credit:10000,
         }
     });
-
- 
 
 
   if (!PayerID || !paymentId) {
@@ -42,7 +39,7 @@ export async function GET(req: NextRequest) {
   };
 
   try {
-    const payment:any = await new Promise((resolve, reject) => {
+    const payment:paypal.PaymentResponse = await new Promise((resolve, reject) => {
       paypal.payment.execute(paymentId as string, execute_payment_json, (error, payment) => {
         if (error) {
           reject(error);
@@ -54,7 +51,7 @@ export async function GET(req: NextRequest) {
 
     if(payment.state==='approved'){
 
-        let paypalCustomer=await db.paypalCustomer.findUnique({
+        const paypalCustomer=await db.paypalCustomer.findUnique({
             where:{
                 userId:userId.userId
             },
