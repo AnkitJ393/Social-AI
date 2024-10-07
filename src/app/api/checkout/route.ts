@@ -1,6 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import paypal from 'paypal-rest-sdk';
-import { auth, currentUser } from "@clerk/nextjs/server";
 
 paypal.configure({
     mode: 'sandbox',
@@ -8,9 +7,8 @@ paypal.configure({
     client_secret: process.env.PAYPAL_SECRET as string,
 });
 
-export async function POST(req: NextRequest) {
-    const userId=auth();
-    const user = await currentUser();
+
+export async function POST(){
 
     try {
         const create_payment_json = {
@@ -19,8 +17,8 @@ export async function POST(req: NextRequest) {
                 payment_method: 'paypal',
             },
             redirect_urls: {
-                return_url: 'http://localhost:3000/api/checkout/success',
-                cancel_url: 'http://localhost:3000/api/checkout/failed',
+                return_url: `http://${process.env.VERCEL_URL}/api/checkout/success`,
+                cancel_url: `http://${process.env.VERCEL_URL}`,
             },
             transactions: [
                 {
@@ -39,15 +37,14 @@ export async function POST(req: NextRequest) {
                         currency: 'USD',
                         total: '10.00',
                     },
-                    description: 'This is the payment description.',
+                    description: 'Social AI Credit purchase.',
                 },
             ],
         };
 
     
-        // Wrap PayPal callback in a Promise
-        const payment:any = await new Promise((resolve, reject) => {
-            paypal.payment.create(create_payment_json, (error: any, payment: any) => {
+        const payment = await new Promise <paypal.PaymentResponse>((resolve, reject) => {
+            paypal.payment.create(create_payment_json, (error, payment) => {
                 if (error) {
                     reject(error);
                 } else {
@@ -56,10 +53,9 @@ export async function POST(req: NextRequest) {
             });
         });
 
-        // Extract approval URL from the payment object
-        const approvalURL = payment.links.find((link: any) => link.rel === 'approval_url');
+        
+        const approvalURL = payment.links?.find((link: any) => link.rel === 'approval_url');
 
-        // If approval URL exists, send it as a response
         if (approvalURL) {
             return NextResponse.json({ approvalURL: approvalURL.href }, { status: 200 });
         } else {

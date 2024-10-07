@@ -11,7 +11,6 @@ const AIUsage = async ()=> {
         revalidatePath('/');
     }
     
-    let availableCredit;
     let totalUsage:number=0;
 
     const userAIOutput=await db.aIOutput.findMany({
@@ -32,9 +31,7 @@ const AIUsage = async ()=> {
         where:{userId:userId as string}
     })
 
-    availableCredit=userCredit ? Number(userCredit?.totalCredit) : 100000;
-
-    console.log(availableCredit,totalUsage)
+   const  availableCredit=userCredit ? Number(userCredit?.totalCredit) : 100000;
 
     return (
         <div className="bg-white">

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { contentTemplates } from '@/lib/content-template';
-import { Loader, Router } from 'lucide-react';
+import { Loader } from 'lucide-react';
 import { useState } from 'react';
 import Editor from '../_components/editor';
 import { chatSession } from '@/lib/gemini-ai';
@@ -25,7 +25,7 @@ const TemplatePage = ({params}:{params:templateSlugProps}) => {
       setIsLoading(true);
 
       try{
-        let dataSet=
+        const dataSet=
         {
             title:formData.get('title'),
             description:formData.get('description')

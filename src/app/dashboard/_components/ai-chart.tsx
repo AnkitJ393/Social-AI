@@ -7,7 +7,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-import { useEffect } from "react";
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
 
 const chartConfig = {

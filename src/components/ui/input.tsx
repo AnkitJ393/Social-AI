@@ -2,6 +2,10 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/* eslint-disable @typescript-eslint/no-empty-object-type */
+// Code with the empty interface
+/* eslint-enable @typescript-eslint/no-empty-object-type */
+
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
