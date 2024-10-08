@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
 
    await db.purchase.create({
         data:{
-            userId:userId!.userId,
+            userId: userId?.userId || "defaultUserId",
             credit:10000,
         }
     });
@@ -53,7 +53,7 @@ export async function GET(req: NextRequest) {
 
         const paypalCustomer=await db.paypalCustomer.findUnique({
             where:{
-                userId:userId!.userId
+                userId: userId?.userId || "defaultUserId"
             },
             select:{
                 paypalCustomerId:true
@@ -63,7 +63,7 @@ export async function GET(req: NextRequest) {
         if(!paypalCustomer){
              await db.paypalCustomer.create({
                 data: {
-                  userId: userId!.userId,
+                  userId:  userId?.userId || "defaultUserId",
                   paypalCustomerId: payment.id  ,
                 },
               });
@@ -72,21 +72,21 @@ export async function GET(req: NextRequest) {
 
         const findUserByUserID = await db.user.findUnique({
             where: {
-              userId: userId!.userId,
+              userId:  userId?.userId || "defaultUserId",
             },
           });
     
           if (!findUserByUserID) {
             await db.user.create({
               data: {
-                userId: userId!.userId,
+                userId:  userId?.userId || "defaultUserId",
                 totalCredit: 10000 + 10000,
               },
             });
           } else {
             await db.user.update({
               where: {
-                userId: userId!.userId,
+                userId:  userId?.userId || "defaultUserId",
               },
               data: {
                 totalCredit: findUserByUserID.totalCredit + 10000,
