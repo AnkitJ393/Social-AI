@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import paypal from 'paypal-rest-sdk';
 import { db } from "@/lib/db";
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 
 paypal.configure({
   mode: 'sandbox', 
