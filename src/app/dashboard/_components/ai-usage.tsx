@@ -5,7 +5,10 @@ import AIChart from './ai-chart';
 
 const AIUsage = async ()=> {
 
-    const {userId}=auth();
+    const userId = auth()?.userId ?? ''; // Set an empty string or handle it appropriately
+if (!userId) {
+  throw new Error("No valid user ID found.");
+}
 
     if(!userId){
         revalidatePath('/');

@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
    await db.purchase.create({
         data:{
             userId: userId?.userId || "defaultUserId",
-            credit:10000,
+            credit:100000,
         }
     });
 
@@ -80,7 +80,7 @@ export async function GET(req: NextRequest) {
             await db.user.create({
               data: {
                 userId:  userId?.userId || "defaultUserId",
-                totalCredit: 10000 + 10000,
+                totalCredit: 100000 + 100000,
               },
             });
           } else {
@@ -89,7 +89,7 @@ export async function GET(req: NextRequest) {
                 userId:  userId?.userId || "defaultUserId",
               },
               data: {
-                totalCredit: findUserByUserID.totalCredit + 10000,
+                totalCredit: findUserByUserID.totalCredit + 100000,
               },
             });
           };

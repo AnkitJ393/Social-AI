@@ -38,7 +38,7 @@ const Upgrade = () => {
         <Card className="w-[350px] flex flex-col mx-auto">
           <CardHeader>
             <CardTitle>10$ One-Time Purchase</CardTitle>
-            <CardDescription>10,000 AI Credit</CardDescription>
+            <CardDescription>100,000 AI Credit</CardDescription>
           </CardHeader>
           <CardContent>
             <div>
