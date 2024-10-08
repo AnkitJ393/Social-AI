@@ -64,7 +64,7 @@ export async function GET(req: NextRequest) {
              await db.paypalCustomer.create({
                 data: {
                   userId:  userId?.userId || "defaultUserId",
-                  paypalCustomerId: payment.id  ,
+                  paypalCustomerId: payment?.id || 'paymentId'  ,
                 },
               });
             }
