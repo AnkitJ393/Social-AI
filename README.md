@@ -1,36 +1,13 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Social Ai is a tool to generate Specific Content Tools using GOOGLE GEMINI 
 
-## Getting Started
+It can generate  Youtube Video Idea , Youtube Video Description , Instagram Hashtags , Tiktok hashtags , LinkedInpost , Tweet
 
-First, run the development server:
+User have limited credits and can buy more credits and Check all the Output History User Searched for 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Teck Stack -> Next Js, Prisma DB , Paypal Integration (not merchant account) , Clerk for Authentication , React Quill Text Editor 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+For Reference  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[Social AI.webm](https://github.com/user-attachments/assets/86ad9003-7a87-4649-98b0-bd41fa766349)
