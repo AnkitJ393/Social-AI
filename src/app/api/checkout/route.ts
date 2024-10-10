@@ -17,8 +17,8 @@ export async function POST(){
                 payment_method: 'paypal',
             },
             redirect_urls: {
-                return_url: `http://${process.env.VERCEL_URL}/api/checkout/success`,
-                cancel_url: `http://${process.env.VERCEL_URL}`,
+                return_url: `https://soclai.netlify.app/api/checkout/success`,
+                cancel_url: `https://soclai.netlify.app/dashboard`,
             },
             transactions: [
                 {
