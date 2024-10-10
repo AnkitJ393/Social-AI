@@ -1,13 +1,29 @@
-Social Ai is a tool to generate Specific Content Tools using GOOGLE GEMINI 
+🚀 Social AI: Content Generation Tool using Google Gemini 🤖
+Social AI is your go-to tool for generating specific content across multiple platforms with the power of Google Gemini! 🌟
 
-It can generate  Youtube Video Idea , Youtube Video Description , Instagram Hashtags , Tiktok hashtags , LinkedInpost , Tweet
+🎥✨ What can it do?
+Social AI can generate:
 
-User have limited credits and can buy more credits and Check all the Output History User Searched for 
+YouTube Video Ideas 🎬
+YouTube Video Descriptions 📝
+Instagram Hashtags 📸
+TikTok Hashtags 🎶
+LinkedIn Posts 💼
+Tweets 🐦
 
-Teck Stack -> Next Js, Prisma DB , Paypal Integration (not merchant account) , Clerk for Authentication , React Quill Text Editor 
+💼💰 User Features:
+Users have limited credits and can purchase more to continue creating content.
+Access your Output History to review previous content generations.
 
-For Reference  
+🛠️ Tech Stack:
+  Next.js ⚡
+  Prisma DB 🗃️
+  PayPal Integration (non-merchant account) 💳
+  Clerk for Authentication 🔒
+  React Quill Text Editor ✏️
+Make sure to replace the tool name and other custom elements to match your project specifics!
 
+Feel free to tweak this further! 😄
 
 
 [Social AI.webm](https://github.com/user-attachments/assets/86ad9003-7a87-4649-98b0-bd41fa766349)
